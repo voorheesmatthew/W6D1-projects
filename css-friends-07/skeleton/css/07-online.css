@@ -1,0 +1,10 @@
+/* PHASE 7: Online */
+.online {
+  position: absolute;
+  transform: rotate(330deg);
+  background-color: green;
+  border-radius: 20px;
+  color: red;
+  font-weight: 100;
+  font-size: 30px;
+}
