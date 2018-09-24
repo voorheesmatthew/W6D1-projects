@@ -34,12 +34,12 @@ Function.prototype.myBind = function (context) {
   };
 };
 
-Function.prototype.myBind2 = function (context, ...args) {
+Function.prototype.myBind2 = function (context, ...bindArgs) {
   let that = this;
   // debugger;
   return function (...callTime) {
-    args = args.concat(callTime);
-    return that.apply(context, args);
+    let allArgs = bindArgs.concat(callTime);
+    return that.apply(context, allArgs);
   };
 };
 
@@ -49,28 +49,28 @@ function getSum(total, num) {
 
 function curriedSum(numArgs) {
   let numbers = [];
-  const func = function _curriedSum(singleNum) {
+  function _curriedSum(singleNum) {
     numbers.push(singleNum);
     if (numbers.length === numArgs) {
       return numbers.reduce(getSum);
     } else {
-      return func;
+      return _curriedSum;
     }
-  };
-  return func;
+  }
+  return _curriedSum;
 }
 
   
 Function.prototype.curry = function (numArgs) {
   let args = [];
   let that = this;
-  const func = function _curry(singleArg) {
+  function _curry(singleArg) {
     args.push(singleArg);
     if (args.length === numArgs) {
-        return that.apply(args);
+        return that.apply(null, args);
     } else {
-      return func;
+      return _curry;
     }
-  };
-  return func;
+  }
+  return _curry;
 };
